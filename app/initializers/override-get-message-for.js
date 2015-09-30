@@ -9,14 +9,27 @@ export default {
   initialize() {
     ValidatorsMessages.reopen({
       i18n: Ember.inject.service(),
+      prefix: 'errors',
+      _regex: /\{\{(\w+)\}\}/g,
 
-      getMessageFor(type, context = {}) {
-        let prefix = this.getWithDefault('prefix', 'errors');
-        let key = `${prefix}.${type}`;
+      defaultAttributeDescription: Ember.computed('i18n.locale', 'prefix', function() {
+        let key = `${this.get('prefix')}.attributeDescription`;
         let i18n = this.get('i18n');
 
         if (i18n && i18n.exists(key)) {
           return i18n.t(key, context);
+        }
+
+        return 'This field';
+      }),
+
+      getMessageFor(type, context = {}) {
+        let key = `${this.get('prefix')}.${type}`;
+        let i18n = this.get('i18n');
+        let msg;
+
+        if (i18n && i18n.exists(key)) {
+          return this.formatMessage(i18n.t(key, context), context);
         }
 
         logger.warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/validators/messages/index.html`);
