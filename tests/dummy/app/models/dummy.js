@@ -19,7 +19,7 @@ var Validations = buildValidations({
     validator('confirmation', {
       on: 'email',
       message: 'do not match',
-      attributeDescription: 'Email addresses'
+      description: 'Email addresses'
     })
   ]
 });

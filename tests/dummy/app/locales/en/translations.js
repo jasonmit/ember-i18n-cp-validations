@@ -1,17 +1,3 @@
-# ember-i18n-cp-validations
-
-Adds support for ember-i18n in ember-cp-validations
-
-## Installation
-
-* `ember install ember-i18n-cp-validations`
-
-## Configuring
-
-Implement the following validation messages across your translations:
-
-```js
-// app/locales/en/translations.js
 export default {
   errors: {
     description: "This field",
@@ -48,34 +34,3 @@ export default {
     url: "{{description}} must be a valid url"
   }
 };
-```
-
-### Customizing the prefix
-
-To change the errors prefix key from `errors` to any other key, such as `validationErrors` you simply add the following to `app/validators/messages.js`.  Now just ammend your translation files to be nested under the `validationErrors` object instead of `errors`.
-
-```js
-// app/validators/messages.js
-
-import ValidatorsMessages from 'ember-cp-validations/validators/messages';
-
-export default ValidatorsMessages.extend({
-  prefix: 'validationErrors'
-});
-```
-
-## Running
-
-* `ember server`
-* Visit your app at http://localhost:4200.
-
-## Running Tests
-
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
