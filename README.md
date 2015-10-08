@@ -29,7 +29,7 @@ export default {
     tooShort: "{{description}} is too short (minimum is {{count}} characters)",
     before: "{{description}} must be before {date}",
     after: "{{description}} must be after {date}",
-    wrongDateFormat: "{{description}} must be in the format of {date}",
+    wrongDateFormat: "{{description}} must be in the format of {{date}}",
     wrongLength: "{{description}} is the wrong length (should be {{count}} characters)",
     notANumber: "{{description}} is not a number",
     notAnInteger: "{{description}} must be an integer",
@@ -42,7 +42,7 @@ export default {
     odd: "{{description}} must be odd",
     even: "{{description}} must be even",
     positive: "{{description}} must be positive",
-    date: "{{description}} {{description}} must be a valid date",
+    date: "{{description}} must be a valid date",
     email: "{{description}} must be a valid email address",
     phone: "{{description}} must be a valid phone number",
     url: "{{description}} must be a valid url"
