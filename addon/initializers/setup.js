@@ -36,7 +36,7 @@ export default function() {
         return this.formatMessage(unwrap(i18n.t(key, context)));
       }
 
-      logger.warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/validators/messages/index.html`);
+      logger.warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`);
 
       return this._super(...arguments);
     }
