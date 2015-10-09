@@ -1,6 +1,6 @@
 {
   "name": "ember-i18n-cp-validations",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "ember-i18n support for ember-cp-validations",
   "directories": {
     "doc": "doc",
