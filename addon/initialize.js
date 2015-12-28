@@ -18,8 +18,8 @@ export default function() {
     _regex: /\{{(\w+)\}}/g,
 
     getDescriptionFor(attribute, context = {}) {
-      let key = `${this.get('prefix')}.description`;
-      let i18n = this.get('i18n');
+      const key = `${this.get('prefix')}.description`;
+      const i18n = this.get('i18n');
 
       if (i18n && i18n.exists(key)) {
         return unwrap(i18n.t(key, context));
@@ -29,8 +29,8 @@ export default function() {
     },
 
     getMessageFor(type, context = {}) {
-      let key = `${this.get('prefix')}.${type}`;
-      let i18n = this.get('i18n');
+      const key = `${this.get('prefix')}.${type}`;
+      const i18n = this.get('i18n');
 
       if (i18n && i18n.exists(key)) {
         return this.formatMessage(unwrap(i18n.t(key, context)));
