@@ -18,6 +18,10 @@ export default function() {
     _regex: /\{{(\w+)\}}/g,
 
     getDescriptionFor(attribute, context = {}) {
+      if (!Ember.isEmpty(context.description)) {
+        return context.description;
+      }
+
       const key = `${this.get('prefix')}.description`;
       const i18n = this.get('i18n');
 
