@@ -17,16 +17,16 @@ export default function() {
     prefix: 'errors',
     _regex: /\{{(\w+)\}}/g,
 
-    getDescriptionFor(attribute, context = {}) {
-      if (!Ember.isEmpty(context.description)) {
-        return context.description;
+    getDescriptionFor(attribute, options = {}) {
+      if (!Ember.isEmpty(options.description)) {
+        return options.description;
       }
 
       const key = `${this.get('prefix')}.description`;
       const i18n = this.get('i18n');
 
       if (i18n && i18n.exists(key)) {
-        return unwrap(i18n.t(key, context));
+        return unwrap(i18n.t(key, options));
       }
 
       return this._super(...arguments);
