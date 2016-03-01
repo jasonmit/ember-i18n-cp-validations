@@ -64,6 +64,45 @@ export default ValidatorsMessages.extend({
 });
 ```
 
+### Translating Validator description
+
+To translate the description of a Validator specify the `i18nDescriptionKey` to match a key in your translations.
+
+```js
+// app/models/user.js
+
+import {validator, buildValidations} from 'ember-cp-validations';
+
+const Validations = buildValidations({
+    username: validator('presence', {
+        presence: true,
+        i18nDescriptionKey: 'key.for.username'
+    })
+});
+
+...
+
+// app/locales/en/translations.js
+
+export default {
+    key: {
+        for: {
+            username: 'Username'
+        }
+    }
+}
+
+// app/locales/sv/translations.js
+
+export default {
+    key: {
+        for: {
+            username: 'Användarnamn'
+        }
+    }
+}
+```
+
 ## Running
 
 * `ember server`
