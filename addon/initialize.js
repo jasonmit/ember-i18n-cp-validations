@@ -18,12 +18,14 @@ export default function() {
     _regex: /\{{(\w+)\}}/g,
 
     getDescriptionFor(attribute, options = {}) {
-      if (!Ember.isEmpty(options.description)) {
-        return options.description;
-      }
-
-      const key = `${this.get('prefix')}.description`;
       const i18n = this.get('i18n');
+      let key = `${this.get('prefix')}.description`;
+
+      if (!Ember.isEmpty(options.descriptionKey)) {
+          key = options.descriptionKey;
+      } else if (!Ember.isEmpty(options.description)) {
+          return options.description;
+      }
 
       if (i18n && i18n.exists(key)) {
         return unwrap(i18n.t(key, options));
