@@ -21,8 +21,8 @@ export default function() {
       const i18n = this.get('i18n');
       let key = `${this.get('prefix')}.description`;
 
-      if (!Ember.isEmpty(options.i18nDescriptionKey)) {
-          key = options.i18nDescriptionKey;
+      if (!Ember.isEmpty(options.descriptionKey)) {
+          key = options.descriptionKey;
       } else if (!Ember.isEmpty(options.description)) {
           return options.description;
       }
