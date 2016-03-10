@@ -71,35 +71,32 @@ To translate the description of a Validator specify the `descriptionKey` to matc
 ```js
 // app/models/user.js
 
-import {validator, buildValidations} from 'ember-cp-validations';
+import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-    username: validator('presence', {
-        presence: true,
-        descriptionKey: 'key.for.username'
-    })
+  username: validator('presence', {
+    presence: true,
+    descriptionKey: 'key.for.username'
+  })
 });
 
-...
-
+...js
 // app/locales/en/translations.js
-
 export default {
-    key: {
-        for: {
-            username: 'Username'
-        }
+  key: {
+    for: {
+      username: 'Username'
     }
+  }
 }
 
 // app/locales/sv/translations.js
-
 export default {
-    key: {
-        for: {
-            username: 'Användarnamn'
-        }
+  key: {
+    for: {
+      username: 'Användarnamn'
     }
+  }
 }
 ```
 
