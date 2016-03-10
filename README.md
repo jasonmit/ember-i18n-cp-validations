@@ -1,5 +1,10 @@
 # ember-i18n-cp-validations
 
+[![npm Version][npm-badge]][npm]
+[![Build Status][travis-badge]][travis]
+[![Ember Observer Score](http://emberobserver.com/badges/ember-i18n-cp-validations.svg)](http://emberobserver.com/addons/ember-i18n-cp-validations)
+[![Ember badge][ember-badge]][embadge]
+
 Adds support for ember-i18n in ember-cp-validations
 
 ## Installation
@@ -12,6 +17,7 @@ Implement the following validation messages across your translations:
 
 ```js
 // app/locales/en/translations.js
+
 export default {
   errors: {
     description: "This field",
@@ -79,9 +85,11 @@ const Validations = buildValidations({
     descriptionKey: 'key.for.username'
   })
 });
+```
 
-...js
+```js
 // app/locales/en/translations.js
+
 export default {
   key: {
     for: {
@@ -91,6 +99,7 @@ export default {
 }
 
 // app/locales/sv/translations.js
+
 export default {
   key: {
     for: {
@@ -115,3 +124,10 @@ export default {
 * `ember build`
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+
+[npm]: https://www.npmjs.org/package/ember-i18n-cp-validations
+[npm-badge]: https://img.shields.io/npm/v/ember-i18n-cp-validations.svg?style=flat-square
+[travis]: https://travis-ci.org/jasonmit/ember-i18n-cp-validations
+[travis-badge]: https://img.shields.io/travis/jasonmit/ember-i18n-cp-validations/master.svg?style=flat-square
+[embadge]: http://embadge.io/
+[ember-badge]: http://embadge.io/v1/badge.svg?start=1.13.0
