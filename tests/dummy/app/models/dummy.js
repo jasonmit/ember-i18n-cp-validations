@@ -6,6 +6,7 @@ var Validations = buildValidations({
   password: [
     validator('presence', true),
     validator('length', {
+      message: 'oops, length is invalid',
       min: 4,
       max: 8
     })
@@ -18,7 +19,6 @@ var Validations = buildValidations({
     validator('presence', true),
     validator('confirmation', {
       on: 'email',
-      message: 'do not match',
       description: 'Email addresses'
     })
   ]

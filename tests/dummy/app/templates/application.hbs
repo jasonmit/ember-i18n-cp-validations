@@ -1,5 +1,9 @@
 <h2 id="title">ember-i18n-cp-validations</h2>
 
-{{model.validations.attrs.email.message}}
+<div class="email-validation">{{model.validations.attrs.email.message}}</div>
+<div class="emailConfirmation-validation">{{model.validations.attrs.emailConfirmation.message}}</div>
+<div class="password-validation">{{model.validations.attrs.password.message}}</div>
 
-{{input value=model.email}}
+{{input id="email" value=model.email}}
+{{input id="emailConfirmation" value=model.emailConfirmation}}
+{{input id="password" value=model.password}}

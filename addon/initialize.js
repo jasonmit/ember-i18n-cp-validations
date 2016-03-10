@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ValidatorsMessages from 'ember-cp-validations/validators/messages';
 
-const { Logger:logger } = Ember;
+const { Logger:logger, isEmpty, inject, get } = Ember;
 
 function unwrap(input) {
   if (input instanceof Ember.Handlebars.SafeString) {
@@ -13,17 +13,17 @@ function unwrap(input) {
 
 export default function() {
   ValidatorsMessages.reopen({
-    i18n: Ember.inject.service(),
+    i18n: inject.service(),
     prefix: 'errors',
     _regex: /\{{(\w+)\}}/g,
 
     getDescriptionFor(attribute, options = {}) {
-      const i18n = this.get('i18n');
-      let key = `${this.get('prefix')}.description`;
+      const i18n = get(this, 'i18n');
+      let key = `${get(this, 'prefix')}.description`;
 
-      if (!Ember.isEmpty(options.descriptionKey)) {
+      if (!isEmpty(options.descriptionKey)) {
           key = options.descriptionKey;
-      } else if (!Ember.isEmpty(options.description)) {
+      } else if (!isEmpty(options.description)) {
           return options.description;
       }
 
@@ -34,12 +34,12 @@ export default function() {
       return this._super(...arguments);
     },
 
-    getMessageFor(type, context = {}) {
-      const key = `${this.get('prefix')}.${type}`;
-      const i18n = this.get('i18n');
+    getMessageFor(type, options = {}) {
+      const key = `${get(this, 'prefix')}.${type}`;
+      const i18n = get(this, 'i18n');
 
       if (i18n && i18n.exists(key)) {
-        return this.formatMessage(unwrap(i18n.t(key, context)));
+        return this.formatMessage(unwrap(i18n.t(key, options)));
       }
 
       logger.warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`);
