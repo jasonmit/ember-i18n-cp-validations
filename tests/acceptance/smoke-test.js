@@ -28,7 +28,7 @@ module('Acceptance: Smoke', {
   }
 });
 
-test('static translations', (assert) => {
+test('basic translations', (assert) => {
   assert.expect(3);
   visit('/');
 
@@ -60,7 +60,7 @@ test('inline message', (assert) => {
   });
 });
 
-test('static translations with custom description', (assert) => {
+test('translations with custom description', (assert) => {
   assert.expect(3);
   const done = assert.async();
 
@@ -77,5 +77,13 @@ test('static translations with custom description', (assert) => {
       contains('.emailConfirmation-validation', `Email addresses doesn't match email`);
       done();
     });
+  });
+});
+
+test('translations with descriptionKey', () => {
+  visit('/');
+
+  andThen(() => {
+    contains('.username-validation', `oops, USERNAME! length is invalid`);
   });
 });

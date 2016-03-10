@@ -1,6 +1,7 @@
 export default {
   errors: {
     description: "This field",
+    usernameDescription: 'USERNAME!',
     inclusion: "{{description}} is not included in the list",
     exclusion: "{{description}} is reserved",
     invalid: "{{description}} is invalid",

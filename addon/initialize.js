@@ -20,15 +20,21 @@ export default function() {
     getDescriptionFor(attribute, options = {}) {
       const i18n = get(this, 'i18n');
       let key = `${get(this, 'prefix')}.description`;
+      let foundCustom;
 
       if (!isEmpty(options.descriptionKey)) {
-          key = options.descriptionKey;
+        key = options.descriptionKey;
+        foundCustom = true;
       } else if (!isEmpty(options.description)) {
-          return options.description;
+        return options.description;
       }
 
-      if (i18n && i18n.exists(key)) {
-        return unwrap(i18n.t(key, options));
+      if (i18n) {
+        if (i18n.exists(key)) {
+          return unwrap(i18n.t(key, options));
+        } else if (foundCustom) {
+          logger.warn(`Custom descriptionKey ${key} provided but does not exist in i18n translations.`);
+        }
       }
 
       return this._super(...arguments);
