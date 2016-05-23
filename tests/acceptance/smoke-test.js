@@ -87,3 +87,11 @@ test('translations with descriptionKey', () => {
     contains('.username-validation', `oops, USERNAME! length is invalid`);
   });
 });
+
+test('translation with messageKey', () => {
+  visit('/');
+
+  andThen(() => {
+    contains('.passwordConfirmation-validation', `Take care! Passwords doesn't match`);
+  });
+});
