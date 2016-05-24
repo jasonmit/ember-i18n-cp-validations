@@ -16,6 +16,10 @@ var Validations = buildValidations({
       max: 8
     })
   ],
+  passwordConfirmation: validator('confirmation', {
+    on: 'password',
+    messageKey: 'errors.passwordConfirmation'
+  }),
   email: [
     validator('presence', true),
     validator('format', { type: 'email' })

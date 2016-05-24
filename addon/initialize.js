@@ -41,7 +41,7 @@ export default function() {
     },
 
     getMessageFor(type, options = {}) {
-      const key = `${get(this, 'prefix')}.${type}`;
+      const key = Ember.isPresent(options.messageKey) ? options.messageKey : `${this.get('prefix')}.${type}`;
       const i18n = get(this, 'i18n');
 
       if (i18n && i18n.exists(key)) {
