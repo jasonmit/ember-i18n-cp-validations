@@ -7,6 +7,8 @@
 
 Adds support for ember-i18n in ember-cp-validations
 
+Using ember-intl?  See: [jasonmit/ember-intl-cp-validations](https://github.com/jasonmit/ember-intl-cp-validations)
+
 ## Installation
 
 * `ember install ember-i18n-cp-validations`
