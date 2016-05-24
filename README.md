@@ -87,6 +87,23 @@ const Validations = buildValidations({
 });
 ```
 
+### Overriding default translation key
+
+By default, translations will be resolved to `validatorPrefix.validatorType`.  If you need to override this functionality entirely and specify your own message key, you can do so with `messageKey` on the validator object.
+
+```js
+// app/models/user.js
+
+import { validator, buildValidations } from 'ember-cp-validations';
+
+const Validations = buildValidations({
+  username: validator('presence', {
+    presence: true,
+    messageKey: 'username.missing'
+  })
+});
+```
+
 ```js
 // app/locales/en/translations.js
 
