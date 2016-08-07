@@ -8,11 +8,14 @@ const {
   isPresent,
   isEmpty,
   inject,
-  get
+  get,
+  String: {
+    isHTMLSafe
+  }
 } = Ember;
 
 function unwrap(input) {
-  if (input instanceof Handlebars.SafeString) {
+  if ((typeof isHTMLSafe === 'function' && isHTMLSafe(input)) || (input instanceof Handlebars.SafeString)) {
     return input.toString();
   }
 
