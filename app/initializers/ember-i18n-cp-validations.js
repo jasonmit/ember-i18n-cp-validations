@@ -26,7 +26,7 @@ export function initialize() {
   ValidatorsMessages.reopen({
     i18n: inject.service(),
     _regex: /\{{(\w+)\}}/g,
-    _prefix: computed('prefix', 'i18n.locale', function() {
+    _prefix: computed('prefix', function() {
       const prefix = get(this, 'prefix');
 
       if (typeof prefix === 'string') {
