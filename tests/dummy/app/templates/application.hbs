@@ -5,9 +5,11 @@
 <div class="password-validation">{{model.validations.attrs.password.message}}</div>
 <div class="passwordConfirmation-validation">{{model.validations.attrs.passwordConfirmation.message}}</div>
 <div class="username-validation">{{model.validations.attrs.username.message}}</div>
+<div class="age-validation">{{model.validations.attrs.age.message}}</div>
 
 {{input id="email" value=model.email}}
 {{input id="emailConfirmation" value=model.emailConfirmation}}
 {{input id="password" value=model.password}}
 {{input id="passwordConfirmation" value=model.passwordConfirmation}}
 {{input id="username" value=model.username}}
+{{input id="age" type="number" value=model.age}}

@@ -48,13 +48,30 @@ test('basic translations', (assert) => {
 test('inline message', (assert) => {
   assert.expect(2);
   const done = assert.async();
+
   visit('/');
 
   andThen(() => {
     contains('.password-validation', `This field can't be blank`);
 
-    fillIn('#password', 'err').then(function() {
+    fillIn('#password', 'err').then(() => {
       contains('.password-validation', `oops, length is invalid`);
+      done();
+    });
+  });
+});
+
+test('validator object can be used within translation message', (assert) => {
+  assert.expect(2);
+  const done = assert.async();
+
+  visit('/');
+
+  andThen(() => {
+    contains('.age-validation', `Must be over one for entry`);
+
+    fillIn('#age', 101).then(() => {
+      contains('.age-validation', `Must be less than one hundred for entry`);
       done();
     });
   });
@@ -73,7 +90,7 @@ test('translations with custom description', (assert) => {
     RSVP.all([
       fillIn('#email', 'foo@bar.com'),
       fillIn('#emailConfirmation', 'xx@bar.com')
-    ]).then(function() {
+    ]).then(() => {
       contains('.emailConfirmation-validation', `Email addresses doesn't match email`);
       done();
     });
@@ -84,7 +101,7 @@ test('translations with descriptionKey', () => {
   visit('/');
 
   andThen(() => {
-    contains('.username-validation', `oops, USERNAME! length is invalid`);
+    contains('.username-validation', `oops, Username length is invalid, expected 8`);
   });
 });
 
@@ -92,6 +109,6 @@ test('translation with messageKey', () => {
   visit('/');
 
   andThen(() => {
-    contains('.passwordConfirmation-validation', `Take care! Passwords doesn't match`);
+    contains('.passwordConfirmation-validation', `Passwords doesn't match`);
   });
 });

@@ -39,6 +39,7 @@ export function initialize() {
 
       return 'errors.';
     }),
+
     getDescriptionFor(attribute, options = {}) {
       const i18n = get(this, 'i18n');
       const prefix = get(this, '_prefix');

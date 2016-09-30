@@ -128,6 +128,29 @@ const Validations = buildValidations({
 });
 ```
 
+### Passing attributes into translation
+
+Passing attributes into your translation is supported.
+
+Similar to passing attributes via through to the `t` method: i.e., `i18n.t('errors.blank', { placeholder: i18n.t('age') })` you can also do this with your validator definition.
+
+```js
+validator('presence', {
+  presence: true,
+  // placeholder will be invoked every time a validation occurs.
+  placeholder(model) {
+    // inject i18n into your model, optional..
+    return get(model, 'i18n').t('age');
+  }
+})
+```
+
+```js
+errors: {
+  blank: '{{placeholder}} cannot be blank!'
+}
+```
+
 ## Testing
 
 A common issue, across every ember project relying on initializers, is how do you tests code dependent on an initializer being invoked.
@@ -145,6 +168,10 @@ moduleForComponent('x-product', 'XProductComponent', {
   }
 });
 ```
+
+## Questions?
+
+Please open a GitHub an [issue](https://www.github.com/jasonmit/ember-i18n-cp-validations/issues).
 
 ## Running
 
