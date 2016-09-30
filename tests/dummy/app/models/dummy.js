@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
-var Validations = buildValidations({
+const { get, inject } = Ember;
+
+const Validations = buildValidations({
   username: validator('length', {
-    message: 'oops, {{description}} length is invalid',
+    message: 'oops, {{description}} length is invalid, expected {{max}}',
     descriptionKey: 'errors.usernameDescription',
     min: 4,
     max: 8
@@ -14,6 +16,31 @@ var Validations = buildValidations({
       message: 'oops, length is invalid',
       min: 4,
       max: 8
+    })
+  ],
+  age: [
+    validator('presence', true),
+    validator('range', {
+      range: [1, 100],
+
+      /**
+       * Optional, but I'd expect you want to override the
+       * message key if you are passing attributes like `placeholder`
+       * into the translation.
+       */
+      messageKey: 'age.outOfRange',
+
+      placeholder(model) {
+        const [ start, end ] = this.options.range;
+        const age = parseInt(get(model, 'age'), 10);
+        const i18n = get(model, 'i18n');
+
+        if (age < start) {
+          return i18n.t('age.lessThan');
+        } else if (age > end) {
+          return i18n.t('age.greatThan');
+        }
+      }
     })
   ],
   passwordConfirmation: validator('confirmation', {
@@ -34,7 +61,9 @@ var Validations = buildValidations({
 });
 
 export default Ember.Object.extend(Validations, {
+  i18n: inject.service(),
   username: '',
   password: '',
-  email: ''
+  email: '',
+  age: 0
 });

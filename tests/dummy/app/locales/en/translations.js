@@ -1,15 +1,20 @@
 export default {
+  age: {
+    outOfRange: '{{placeholder}} for entry',
+    lessThan: 'Must be over one',
+    greatThan: 'Must be less than one hundred'
+  },
   errors: {
     description: "This field",
-    usernameDescription: 'USERNAME!',
-    passwordConfirmation: "Take care! Passwords doesn't match",
+    usernameDescription: 'Username',
+    passwordConfirmation: "Passwords doesn't match",
     inclusion: "{{description}} is not included in the list",
     exclusion: "{{description}} is reserved",
     invalid: "{{description}} is invalid",
     confirmation: "{{description}} doesn't match {{on}}",
     accepted: "{{description}} must be accepted",
     empty: "{{description}} can't be empty",
-    blank: "{{description}} can't be blank",
+    blank: "{{description}} can't be blank {{placeholder}}",
     present: "{{description}} must be blank",
     collection: "{{description}} must be a collection",
     singular: "{{description}} can't be a collection",
@@ -33,6 +38,7 @@ export default {
     date: "{{description}} must be a valid date",
     email: "{{description}} must be a valid email address",
     phone: "{{description}} must be a valid phone number",
-    url: "{{description}} must be a valid url"
+    url: "{{description}} must be a valid url",
+    outOfRange: "{{description}} is out of range"
   }
 };
