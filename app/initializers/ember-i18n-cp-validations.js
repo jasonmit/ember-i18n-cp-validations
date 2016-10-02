@@ -7,6 +7,7 @@ const {
   computed,
   isPresent,
   isEmpty,
+  isNone,
   inject,
   get,
   String: {
@@ -14,8 +15,12 @@ const {
   }
 } = Ember;
 
+function isSafeString(input) {
+  return (typeof isHTMLSafe === 'function' && isHTMLSafe(input)) || (input instanceof Handlebars.SafeString);
+}
+
 function unwrap(input) {
-  if ((typeof isHTMLSafe === 'function' && isHTMLSafe(input)) || (input instanceof Handlebars.SafeString)) {
+  if (isSafeString(input)) {
     return input.toString();
   }
 
@@ -25,7 +30,8 @@ function unwrap(input) {
 export function initialize() {
   ValidatorsMessages.reopen({
     i18n: inject.service(),
-    _regex: /\{{(\w+)\}}/g,
+    _regex: /\{\{(\w+)\}\}|\{(\w+)\}/g,
+
     _prefix: computed('prefix', function() {
       const prefix = get(this, 'prefix');
 
@@ -40,42 +46,55 @@ export function initialize() {
       return 'errors.';
     }),
 
-    getDescriptionFor(attribute, options = {}) {
-      const i18n = get(this, 'i18n');
+    getDescriptionFor(attribute, context = {}) {
       const prefix = get(this, '_prefix');
       let key = `${prefix}description`;
-      let foundCustom;
+      let setDescriptionKey;
 
-      if (!isEmpty(options.descriptionKey)) {
-        key = options.descriptionKey;
-        foundCustom = true;
-      } else if (!isEmpty(options.description)) {
-        return options.description;
+      if (!isEmpty(context.descriptionKey)) {
+        key = context.descriptionKey;
+        setDescriptionKey = true;
+      } else if (!isEmpty(context.description)) {
+        return context.description;
       }
 
-      if (i18n) {
-        if (i18n.exists(key)) {
-          return unwrap(i18n.t(key, options));
-        } else if (foundCustom) {
-          logger.warn(`Custom descriptionKey ${key} provided but does not exist in i18n translations.`);
-        }
+      const i18n = get(this, 'i18n');
+
+      if (i18n && i18n.exists(key)) {
+        return unwrap(i18n.t(key, context));
+      }
+
+      if (setDescriptionKey) {
+        logger.warn(`Custom descriptionKey ${key} provided but does not exist in i18n translations.`);
       }
 
       return this._super(...arguments);
     },
 
-    getMessageFor(type, options = {}) {
+    getMessageFor(type, context = {}) {
       const i18n = get(this, 'i18n');
       const prefix = get(this, '_prefix');
-      const key = isPresent(options.messageKey) ? options.messageKey : `${prefix}${type}`;
+      const key = isPresent(context.messageKey) ? context.messageKey : `${prefix}${type}`;
 
       if (i18n && i18n.exists(key)) {
-        return this.formatMessage(unwrap(i18n.t(key, options)));
+        return unwrap(i18n.t(key, context));
       }
 
       logger.warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`);
 
       return this._super(...arguments);
+    },
+
+    formatMessage(message, context) {
+      let m = message;
+
+      if (isNone(m) || typeof m !== 'string') {
+        m = get(this, 'invalid');
+      }
+
+      return m.replace(get(this, '_regex'), (s, p1, p2) => {
+        return get(context, p1 || p2);
+      });
     }
   });
 }
