@@ -16,7 +16,7 @@ const {
 } = Ember;
 
 function isSafeString(input) {
-  return (typeof isHTMLSafe === 'function' && isHTMLSafe(input)) || (input instanceof Handlebars.SafeString);
+  return typeof isHTMLSafe === 'function' ? isHTMLSafe(input) : input instanceof Handlebars.SafeString;
 }
 
 function unwrap(input) {
