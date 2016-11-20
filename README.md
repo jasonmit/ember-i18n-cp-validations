@@ -151,6 +151,24 @@ errors: {
 }
 ```
 
+### Disabling Missing Translation Warnings
+
+To suppress console warnings for missing translations, you can do so by setting `i18n.suppressWarnings` in `config/environment`;
+
+```js
+// config/environment.js
+module.exports = function(environment) {
+  const ENV = {};
+
+  if (environment === 'test') {
+    ENV.i18n = ENV.i18n || {};
+    ENV.i18n.suppressWarnings = true;
+  }
+
+  return ENV;
+}
+```
+
 ## Testing
 
 A common issue, across every ember project relying on initializers, is how do you tests code dependent on an initializer being invoked.

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from '../config/environment';
 import ValidatorsMessages from '../validators/messages';
 
 const {
@@ -25,6 +26,12 @@ function unwrap(input) {
   }
 
   return input;
+}
+
+function warn(msg) {
+  if (!get(ENV, 'i18n.suppressWarnings')) {
+    logger.warn(msg);
+  }
 }
 
 export function initialize() {
@@ -65,7 +72,7 @@ export function initialize() {
       }
 
       if (setDescriptionKey) {
-        logger.warn(`Custom descriptionKey ${key} provided but does not exist in i18n translations.`);
+        warn(`Custom descriptionKey ${key} provided but does not exist in i18n translations.`);
       }
 
       return this._super(...arguments);
@@ -80,7 +87,7 @@ export function initialize() {
         return unwrap(i18n.t(key, context));
       }
 
-      logger.warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`);
+      warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`);
 
       return this._super(...arguments);
     },
