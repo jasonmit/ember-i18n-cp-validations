@@ -4,7 +4,7 @@ import ValidatorsMessages from '../validators/messages';
 
 const {
   Handlebars,
-  Logger:logger,
+  warn,
   computed,
   isPresent,
   isEmpty,
@@ -28,9 +28,9 @@ function unwrap(input) {
   return input;
 }
 
-function warn(msg) {
+function emitWarning(msg, meta) {
   if (!get(ENV, 'i18n.suppressWarnings')) {
-    logger.warn(msg);
+    warn(msg, meta);
   }
 }
 
@@ -72,7 +72,9 @@ export function initialize() {
       }
 
       if (setDescriptionKey) {
-        warn(`Custom descriptionKey ${key} provided but does not exist in i18n translations.`);
+        emitWarning(`Custom descriptionKey ${key} provided but does not exist in i18n translations.`, {
+          id: 'ember-i18n-cp-validations-missing-description-key'
+        });
       }
 
       return this._super(...arguments);
@@ -87,7 +89,9 @@ export function initialize() {
         return unwrap(i18n.t(key, context));
       }
 
-      warn(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`);
+      emitWarning(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`, {
+        id: 'ember-i18n-cp-validations-missing-translation'
+      });
 
       return this._super(...arguments);
     },
