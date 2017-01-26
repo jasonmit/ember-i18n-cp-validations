@@ -1,4 +1,6 @@
 {
   "name": "ember-i18n-cp-validations",
-  "dependencies": {}
+  "dependencies": {
+    "ember": "components/ember#beta"
+  }
 }

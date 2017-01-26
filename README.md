@@ -168,24 +168,6 @@ module.exports = function(environment) {
 }
 ```
 
-## Testing
-
-A common issue, across every ember project relying on initializers, is how do you tests code dependent on an initializer being invoked.
-
-To work around this, invoke the initializer during the `setup` for your test dependent on the initializer.
-
-```js
-import { moduleForComponent, test } from 'ember-qunit';
-import initialize from 'ember-i18n-cp-validations/initialize';
-
-moduleForComponent('x-product', 'XProductComponent', {
-  integration: true,
-  setup() {
-    initialize(this);
-  }
-});
-```
-
 ## Questions?
 
 Please open a GitHub an [issue](https://www.github.com/jasonmit/ember-i18n-cp-validations/issues).
