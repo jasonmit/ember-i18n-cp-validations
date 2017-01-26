@@ -137,11 +137,10 @@ Similar to passing attributes via through to the `t` method: i.e., `i18n.t('erro
 ```js
 validator('presence', {
   presence: true,
-  // placeholder will be invoked every time a validation occurs.
-  placeholder(model) {
+  placeholder: Ember.computed('model.age', 'model.i18n.locale', {
     // inject i18n into your model, optional..
     return get(model, 'i18n').t('age');
-  }
+  })
 })
 ```
 

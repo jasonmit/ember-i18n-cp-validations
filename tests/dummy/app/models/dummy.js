@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 
-const { get, inject } = Ember;
+const { get, inject, computed } = Ember;
 
 const Validations = buildValidations({
   username: validator('length', {
@@ -30,8 +30,9 @@ const Validations = buildValidations({
        */
       messageKey: 'age.outOfRange',
 
-      placeholder(model) {
-        const [ start, end ] = this.options.range;
+      placeholder: computed('model.age', 'model.i18n.locale', function() {
+        const model = get(this, 'model');
+        const [ start, end ] = get(this, 'range');
         const age = parseInt(get(model, 'age'), 10);
         const i18n = get(model, 'i18n');
 
@@ -40,7 +41,7 @@ const Validations = buildValidations({
         } else if (age > end) {
           return i18n.t('age.greatThan');
         }
-      }
+      })
     })
   ],
   passwordConfirmation: validator('confirmation', {
