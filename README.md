@@ -13,6 +13,11 @@ Using ember-intl?  See: [jasonmit/ember-intl-cp-validations](https://github.com/
 
 * `ember install ember-i18n-cp-validations`
 
+## Breaking changes between 2.x and 3.x for ember-i18n-cp-validations
+
+1. If your application implements it's own `app/validators/messages.js` you'll want to change the import reference from: `ember-cp-validations/validators/messages` to `ember-i18n-cp-validations/validators/message`
+2. Instantiating the initializer is no longer necessary for testing
+
 ## Configuring
 
 Implement the following validation messages across your translations:
@@ -65,7 +70,7 @@ To change the errors prefix key from `errors` to any other key, such as `validat
 ```js
 // app/validators/messages.js
 
-import ValidatorsMessages from 'ember-cp-validations/validators/messages';
+import ValidatorsMessages from 'ember-i18n-cp-validations/validators/messages';
 
 export default ValidatorsMessages.extend({
   prefix: 'validationErrors'
