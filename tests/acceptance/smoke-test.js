@@ -6,7 +6,7 @@ let application;
 
 const { run:emberRun, RSVP } = Ember;
 
-function contains(selector, string) {
+function contains(selector, string, assert) {
   const element = find(selector)[0];
 
   if (!element) {
@@ -14,7 +14,7 @@ function contains(selector, string) {
   }
 
   const text = element.textContent || element.innerText;
-  return equal(text.replace(/^\s+|\s+$/g, ''), string);
+  return assert.equal(text.replace(/^\s+|\s+$/g, ''), string);
 }
 
 module('Acceptance: Smoke', {
@@ -33,14 +33,14 @@ test('basic translations', (assert) => {
   visit('/');
 
   andThen(() => {
-    contains('.email-validation', `This field can't be blank`);
+    contains('.email-validation', `This field can't be blank`, assert);
 
     fillIn('#email', 'you@example.com').then(function() {
-      contains('.email-validation', ``);
+      contains('.email-validation', ``, assert);
     });
 
     fillIn('#email', 'invalid-email').then(function() {
-      contains('.email-validation', `This field must be a valid email address`);
+      contains('.email-validation', `This field must be a valid email address`, assert);
     });
   });
 });
@@ -52,10 +52,10 @@ test('inline message', (assert) => {
   visit('/');
 
   andThen(() => {
-    contains('.password-validation', `This field can't be blank`);
+    contains('.password-validation', `This field can't be blank`, assert);
 
     fillIn('#password', 'err').then(() => {
-      contains('.password-validation', `oops, length is invalid`);
+      contains('.password-validation', `oops, length is invalid`, assert);
       done();
     });
   });
@@ -68,10 +68,10 @@ test('validator object can be used within translation message', (assert) => {
   visit('/');
 
   andThen(() => {
-    contains('.age-validation', `Must be over one for entry`);
+    contains('.age-validation', `Must be over one for entry`, assert);
 
     fillIn('#age', 101).then(() => {
-      contains('.age-validation', `Must be less than one hundred for entry`);
+      contains('.age-validation', `Must be less than one hundred for entry`, assert);
       done();
     });
   });
@@ -84,31 +84,31 @@ test('translations with custom description', (assert) => {
   visit('/');
 
   andThen(() => {
-    contains('.email-validation', `This field can't be blank`);
-    contains('.emailConfirmation-validation', `This field can't be blank`);
+    contains('.email-validation', `This field can't be blank`, assert);
+    contains('.emailConfirmation-validation', `This field can't be blank`, assert);
 
     RSVP.all([
       fillIn('#email', 'foo@bar.com'),
       fillIn('#emailConfirmation', 'xx@bar.com')
     ]).then(() => {
-      contains('.emailConfirmation-validation', `Email addresses doesn't match email`);
+      contains('.emailConfirmation-validation', `Email addresses doesn't match email`, assert);
       done();
     });
   });
 });
 
-test('translations with descriptionKey', () => {
+test('translations with descriptionKey', (assert) => {
   visit('/');
 
   andThen(() => {
-    contains('.username-validation', `oops, Username length is invalid, expected 8`);
+    contains('.username-validation', `oops, Username length is invalid, expected 8`, assert);
   });
 });
 
-test('translation with messageKey', () => {
+test('translation with messageKey', (assert) => {
   visit('/');
 
   andThen(() => {
-    contains('.passwordConfirmation-validation', `Passwords doesn't match`);
+    contains('.passwordConfirmation-validation', `Passwords doesn't match`, assert);
   });
 });

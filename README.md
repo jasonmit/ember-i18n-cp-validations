@@ -13,6 +13,11 @@ Using ember-intl?  See: [jasonmit/ember-intl-cp-validations](https://github.com/
 
 * `ember install ember-i18n-cp-validations`
 
+## Breaking changes between 2.x and 3.x for ember-i18n-cp-validations
+
+1. If your application implements it's own `app/validators/messages.js` you'll want to change the import reference from: `ember-cp-validations/validators/messages` to `ember-i18n-cp-validations/validators/message`
+2. Instantiating the initializer is no longer necessary for testing
+
 ## Configuring
 
 Implement the following validation messages across your translations:
@@ -65,7 +70,7 @@ To change the errors prefix key from `errors` to any other key, such as `validat
 ```js
 // app/validators/messages.js
 
-import ValidatorsMessages from 'ember-cp-validations/validators/messages';
+import ValidatorsMessages from 'ember-i18n-cp-validations/validators/messages';
 
 export default ValidatorsMessages.extend({
   prefix: 'validationErrors'
@@ -137,11 +142,10 @@ Similar to passing attributes via through to the `t` method: i.e., `i18n.t('erro
 ```js
 validator('presence', {
   presence: true,
-  // placeholder will be invoked every time a validation occurs.
-  placeholder(model) {
+  placeholder: Ember.computed('model.age', 'model.i18n.locale', {
     // inject i18n into your model, optional..
     return get(model, 'i18n').t('age');
-  }
+  })
 })
 ```
 
@@ -167,24 +171,6 @@ module.exports = function(environment) {
 
   return ENV;
 }
-```
-
-## Testing
-
-A common issue, across every ember project relying on initializers, is how do you tests code dependent on an initializer being invoked.
-
-To work around this, invoke the initializer during the `setup` for your test dependent on the initializer.
-
-```js
-import { moduleForComponent, test } from 'ember-qunit';
-import initialize from 'ember-i18n-cp-validations/initialize';
-
-moduleForComponent('x-product', 'XProductComponent', {
-  integration: true,
-  setup() {
-    initialize(this);
-  }
-});
 ```
 
 ## Questions?
