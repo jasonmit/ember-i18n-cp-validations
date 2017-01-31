@@ -96,7 +96,7 @@ export default ValidatorsMessages.extend({
 
     emitWarning(`[ember-i18n-cp-validations] Missing translation for validation key: ${key}\nhttp://offirgolan.github.io/ember-cp-validations/docs/messages/index.html`, {
       id: 'ember-i18n-cp-validations-missing-translation'
-    });
+    }, this._config);
 
     return this._super(...arguments);
   },
