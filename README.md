@@ -65,7 +65,7 @@ export default {
 
 ### Customizing the prefix
 
-To change the errors prefix key from `errors` to any other key, such as `validationErrors` you simply add the following to `app/validators/messages.js`.  Now just ammend your translation files to be nested under the `validationErrors` object instead of `errors`.
+To change the errors prefix key from `errors` to any other key, such as `validationErrors` you simply add the following to `app/validators/messages.js`.  Now just amend your translation files to be nested under the `validationErrors` object instead of `errors`.
 
 ```js
 // app/validators/messages.js
