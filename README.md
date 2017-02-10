@@ -56,6 +56,8 @@ export default {
     even: "{{description}} must be even",
     positive: "{{description}} must be positive",
     date: "{{description}} must be a valid date",
+    onOrAfter: '{{description}} must be on or after {{onOrAfter}}',
+    onOrBefore: '{{description} must be on or before {{onOrBefore}}',
     email: "{{description}} must be a valid email address",
     phone: "{{description}} must be a valid phone number",
     url: "{{description}} must be a valid url"
