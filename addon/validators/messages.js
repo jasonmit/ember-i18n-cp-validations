@@ -30,7 +30,7 @@ function unwrap(input) {
 
 function emitWarning(msg, meta, ENV) {
   if (!get(ENV, 'i18n.suppressWarnings')) {
-    warn(msg, meta);
+    warn(msg, false, meta);
   }
 }
 
