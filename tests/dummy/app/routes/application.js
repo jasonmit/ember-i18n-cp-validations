@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { getOwner } from '@ember/application';
 
-export default Ember.Route.extend({
+export default Route.extend({
   model() {
-    return this.container.lookup('model:dummy');
+    return getOwner(this).lookup('model:dummy');
   }
 });

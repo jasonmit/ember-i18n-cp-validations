@@ -1,19 +1,14 @@
+import { inject as service } from '@ember/service';
+import { warn } from '@ember/debug';
+import { isNone, isEmpty, isPresent } from '@ember/utils';
+import { get, computed } from '@ember/object';
+import { getOwner } from '@ember/application';
+import { isHTMLSafe } from '@ember/string';
 import Ember from 'ember';
 import ValidatorsMessages from 'ember-cp-validations/validators/messages';
 
 const {
-  Handlebars,
-  warn,
-  computed,
-  isPresent,
-  isEmpty,
-  isNone,
-  inject,
-  get,
-  getOwner,
-  String: {
-    isHTMLSafe
-  }
+  Handlebars
 } = Ember;
 
 function isSafeString(input) {
@@ -35,7 +30,7 @@ function emitWarning(msg, meta, ENV) {
 }
 
 export default ValidatorsMessages.extend({
-  i18n: inject.service(),
+  i18n: service(),
   _regex: /\{\{(\w+)\}\}|\{(\w+)\}/g,
 
   _prefix: computed('prefix', function() {

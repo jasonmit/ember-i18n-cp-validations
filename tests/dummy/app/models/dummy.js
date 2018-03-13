@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import EmberObject, { computed, get } from '@ember/object';
 import { validator, buildValidations } from 'ember-cp-validations';
-
-const { get, inject, computed } = Ember;
 
 const Validations = buildValidations({
   username: validator('length', {
@@ -30,9 +29,9 @@ const Validations = buildValidations({
        */
       messageKey: 'age.outOfRange',
 
-      placeholder: computed('model.age', 'model.i18n.locale', function() {
+      placeholder: computed('model.{age,i18n.locale}', function() {
         const model = get(this, 'model');
-        const [ start, end ] = get(this, 'range');
+        const [start, end] = get(this, 'range');
         const age = parseInt(get(model, 'age'), 10);
         const i18n = get(model, 'i18n');
 
@@ -48,10 +47,7 @@ const Validations = buildValidations({
     on: 'password',
     messageKey: 'errors.passwordConfirmation'
   }),
-  email: [
-    validator('presence', true),
-    validator('format', { type: 'email' })
-  ],
+  email: [validator('presence', true), validator('format', { type: 'email' })],
   emailConfirmation: [
     validator('presence', true),
     validator('confirmation', {
@@ -61,8 +57,8 @@ const Validations = buildValidations({
   ]
 });
 
-export default Ember.Object.extend(Validations, {
-  i18n: inject.service(),
+export default EmberObject.extend(Validations, {
+  i18n: service(),
   username: '',
   password: '',
   email: '',
