@@ -11,7 +11,7 @@
     "intl"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Jason Mitchell <jason.mitchell.w@gmail.com> (http://github.com/jasonmit)",
   "directories": {
     "doc": "doc",
     "test": "tests"
